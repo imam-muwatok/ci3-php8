@@ -1,0 +1,38 @@
+fixed ci3 on php 8.XX
+https://stackoverflow.com/questions/75122899/creation-of-dynamic-property-ci-uriconfig-is-deprecated
+
+
+I think a better way is to implement #[\AllowDynamicProperties]
+
+Easier and much shorter.
+
+In all the above mentioned classes add #[\AllowDynamicProperties] above class xxxxxx {
+
+I give you my changes:
+
+/system/core/URI.php
+
+#[\AllowDynamicProperties]
+
+class CI_URI {
+/system/core/Router.php
+
+#[\AllowDynamicProperties]
+
+class CI_Router {
+/system/core/Loader.php
+
+#[\AllowDynamicProperties]
+
+class CI_Loader {
+/system/core/Controller.php
+
+#[\AllowDynamicProperties]
+
+class CI_Controller {   
+/system/database/DB_driver.php
+
+#[\AllowDynamicProperties]
+
+abstract class CI_DB_driver {
+Source: https://github.com/bcit-ci/CodeIgniter/pull/6193#issuecomment-1397221543
