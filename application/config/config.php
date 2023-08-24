@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// set time
+date_default_timezone_set("Asia/Jakarta");
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -418,12 +421,19 @@ $config['cookie_samesite'] 	= 'Lax';
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'csrf_test_name';
-$config['csrf_cookie_name'] = 'csrf_cookie_name';
-$config['csrf_expire'] = 7200;
-$config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array();
+// $config['csrf_protection'] = FALSE;
+// $config['csrf_token_name'] = 'csrf_test_name';
+// $config['csrf_cookie_name'] = 'csrf_cookie_name';
+// $config['csrf_expire'] = 7200;
+// $config['csrf_regenerate'] = TRUE;
+// $config['csrf_exclude_uris'] = array();
+
+$config['csrf_protection'] = TRUE;                   // SET TRUE UNTUK ENABLE CSRF PROTECTION
+$config['csrf_token_name'] = 'csrf_test_name';      // NAMA CSRF TOKEN YANG AKAN DIGUNAKAN
+$config['csrf_cookie_name'] = 'csrf_cookie_name';   // NAMA CSRF COOKIE YANG AKAN DIGUNAKAN
+$config['csrf_expire'] = 7200;                      // JANGKA WAKTU CSRF TOKEN EXPIRED (DALAM DETIK)
+$config['csrf_regenerate'] = TRUE;                  // JIKA TRUE MAKA CSRF TOKEN AKAN DI GENERATE ULANG UNTUK SETIAP REQUEST
+$config['csrf_exclude_uris'] = array();             // ARRAY BERISI LIST URI YANG TIDAK MENGGUNAKAN CSRF PROTECTION
 
 /*
 |--------------------------------------------------------------------------
