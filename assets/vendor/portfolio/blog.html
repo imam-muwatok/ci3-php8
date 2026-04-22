@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Nexura Blog | Artikel Modern & Inspiratif</title>
+    <!-- Google Fonts & Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 30%, #e9f0fc, #cddef5);
+            transition: background 0.3s ease, color 0.2s ease;
+            min-height: 100vh;
+            color: #0f172a;
+            scroll-behavior: smooth;
+        }
+
+        /* Dark mode global */
+        body.dark {
+            background: radial-gradient(circle at 20% 25%, #0a0f1c, #0c1222);
+            color: #eef2ff;
+        }
+
+        /* Glassmorphism Core */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.28);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 35px -8px rgba(0, 0, 0, 0.1);
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        body.dark .glass-card {
+            background: rgba(18, 25, 45, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        body.dark .glass-card:hover {
+            background: rgba(35, 48, 80, 0.6);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        /* Navbar glass premium */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0.7rem 2rem;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            border-radius: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            margin-bottom: 2.8rem;
+        }
+
+        body.dark .navbar {
+            background: rgba(10, 20, 35, 0.55);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(125deg, #1e40af, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        body.dark .logo {
+            background: linear-gradient(125deg, #a5f3fc, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1e293b;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        body.dark .nav-links a {
+            color: #cbd5e6;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        body.dark .nav-links a:hover {
+            color: #93c5fd;
+        }
+
+        /* Dark mode toggle button glass */
+        .theme-toggle {
+            background: rgba(255, 248, 225, 0.4);
+            border-radius: 3rem;
+            padding: 0.3rem 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+            padding: 5px 10px;
+            border-radius: 2rem;
+            transition: 0.2s;
+        }
+
+        .theme-toggle .fa-sun {
+            background: rgba(253, 224, 71, 0.8);
+            color: #92400e;
+        }
+
+        body.dark .theme-toggle .fa-sun {
+            background: transparent;
+            color: #94a3b8;
+        }
+
+        .theme-toggle .fa-moon {
+            background: transparent;
+            color: #334155;
+        }
+
+        body.dark .theme-toggle .fa-moon {
+            background: rgba(100, 116, 139, 0.7);
+            color: #fde047;
+        }
+
+        /* Hero blog section */
+        .blog-header {
+            margin-bottom: 3rem;
+        }
+
+        .hero-blog {
+            padding: 2rem 2rem;
+            border-radius: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+
+        body.dark .hero-blog {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-blog h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e293b, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        body.dark .hero-blog h1 {
+            background: linear-gradient(135deg, #e0f2fe, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        /* filter & search bar glass */
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0 2rem;
+        }
+
+        .search-glass {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 3rem;
+            padding: 0.6rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        body.dark .search-glass {
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .search-glass input {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            padding: 0.3rem;
+            outline: none;
+            color: #0f172a;
+            width: 200px;
+        }
+
+        body.dark .search-glass input {
+            color: #f1f5f9;
+        }
+
+        .search-glass input::placeholder {
+            color: #475569;
+        }
+
+        body.dark .search-glass input::placeholder {
+            color: #94a3b8;
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(5px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 3rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        body.dark .filter-chip {
+            background: rgba(51, 65, 85, 0.6);
+            color: #e2e8f0;
+        }
+
+        .filter-chip.active, .filter-chip:hover {
+            background: #3b82f6;
+            color: white;
+            border-color: #60a5fa;
+        }
+
+        body.dark .filter-chip.active {
+            background: #2563eb;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+
+        .blog-card {
+            padding: 1.6rem;
+            border-radius: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.25s;
+        }
+
+        .blog-category {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.2);
+            padding: 0.2rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            width: fit-content;
+            backdrop-filter: blur(4px);
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.8rem 0 0.5rem;
+            line-height: 1.3;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin: 0.5rem 0;
+        }
+
+        .blog-excerpt {
+            line-height: 1.5;
+            margin: 0.75rem 0;
+            opacity: 0.9;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.2rem;
+        }
+
+        .like-button {
+            background: rgba(244, 63, 94, 0.15);
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: 0.85rem;
+            backdrop-filter: blur(4px);
+        }
+
+        body.dark .like-button {
+            background: rgba(244, 63, 94, 0.25);
+            color: #ffe4e6;
+        }
+
+        .like-button i {
+            transition: transform 0.1s ease;
+        }
+
+        .like-button:hover i {
+            transform: scale(1.1);
+        }
+
+        .read-link {
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #2563eb;
+        }
+
+        body.dark .read-link {
+            color: #a5b4fc;
+        }
+
+        /* Pagination glass */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 2rem 0 2rem;
+        }
+
+        .page-btn {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        body.dark .page-btn {
+            background: rgba(30, 41, 59, 0.6);
+            color: #e2e8f0;
+        }
+
+        .page-btn.active-page, .page-btn:hover {
+            background: #3b82f6;
+            color: white;
+            border-color: #93c5fd;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+        }
+
+        body.dark footer {
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 1rem;
+            }
+            .navbar {
+                flex-direction: column;
+                border-radius: 2rem;
+            }
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-blog h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        .empty-msg {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2rem;
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-pen-nib"></i> Nexura<span style="font-weight:500;">Blog</span>
+        </div>
+        <div class="nav-links">
+            <a href="#">Beranda</a>
+            <a href="#" class="active-link">Blog</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Tentang</a>
+            <div class="theme-toggle" id="darkModeToggleBlog">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Header Blog -->
+    <div class="blog-header">
+        <div class="hero-blog glass-card" style="padding: 1.8rem 2rem;">
+            <h1><i class="fas fa-feather-alt"></i> Wawasan & Kreativitas</h1>
+            <p style="margin-top: 0.7rem; font-size: 1.1rem;">Jelajahi artikel tentang desain modern, teknologi, dan pengembangan UI yang inspiratif. Dengan sentuhan glassmorphism dan dark mode yang seamless.</p>
+            <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                <span class="filter-chip" style="background: #3b82f6; color:white;"><i class="fas fa-fire"></i> 24+ Artikel</span>
+                <span class="filter-chip"><i class="fas fa-users"></i> Komunitas Kreatif</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter & Search -->
+    <div class="filter-bar">
+        <div class="search-glass">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Cari artikel...">
+        </div>
+        <div class="category-filters" id="categoryFilterGroup">
+            <button class="filter-chip active" data-cat="all">Semua</button>
+            <button class="filter-chip" data-cat="UI/UX">UI/UX</button>
+            <button class="filter-chip" data-cat="Pengembangan">Pengembangan</button>
+            <button class="filter-chip" data-cat="Inspirasi">Inspirasi</button>
+            <button class="filter-chip" data-cat="Teknologi">Teknologi</button>
+        </div>
+    </div>
+
+    <!-- Blog Posts Grid -->
+    <div id="blogGridContainer" class="blog-grid">
+        <!-- dynamic from js -->
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="paginationControls"></div>
+
+    <footer>
+        <p><i class="fas fa-moon"></i> Dark Mode support • Glassmorphism UI • <i class="fas fa-heart" style="color: #f97316;"></i> Interaksi like tersimpan secara lokal</p>
+        <p style="font-size: 0.75rem; margin-top: 0.5rem;">© 2025 NexuraBlog — Inspirasi modern tanpa batas</p>
+    </footer>
+</div>
+
+<script>
+    // ----- DATA BLOG (Kaya akan konten modern) -----
+    const allBlogPosts = [
+        { id: 1, title: "Seni Glassmorphism di Era Modern", category: "UI/UX", date: "12 April 2025", excerpt: "Pelajari teknik backdrop-filter dan transparansi untuk menciptakan antarmuka seperti kaca yang elegan dan fungsional.", likes: 42 },
+        { id: 2, title: "Dark Mode vs Light Mode: Panduan UX", category: "UI/UX", date: "18 April 2025", excerpt: "Bagaimana memilih skema warna yang tepat untuk kenyamanan mata dan estetika aplikasi Anda.", likes: 87 },
+        { id: 3, title: "Optimasi Next.js untuk Performa Maksimal", category: "Pengembangan", date: "25 April 2025", excerpt: "Teknik modern seperti image optimization, code splitting, dan edge rendering untuk kecepatan luar biasa.", likes: 33 },
+        { id: 4, title: "Microinteractions yang Membuat Produk Lebih Hidup", category: "Inspirasi", date: "2 Mei 2025", excerpt: "Detail kecil animasi tombol dan transisi dapat meningkatkan pengalaman pengguna secara signifikan.", likes: 61 },
+        { id: 5, title: "Figma to Code: Alur Kerja Efektif", category: "Pengembangan", date: "9 Mei 2025", excerpt: "Jembati desain dan implementasi dengan plugin dan tools terbaru untuk developer modern.", likes: 28 },
+        { id: 6, title: "Kecerdasan Buatan dalam Desain UI", category: "Teknologi", date: "17 Mei 2025", excerpt: "AI generatif membantu desainer membuat layout dan aset visual dengan cepat dan presisi.", likes: 55 },
+        { id: 7, title: "Prinsip Desain Inklusif untuk Semua", category: "Inspirasi", date: "24 Mei 2025", excerpt: "Aksesibilitas bukan hanya fitur, tetapi pondasi pengalaman digital yang ramah untuk semua orang.", likes: 39 },
+        { id: 8, title: "Tailwind CSS + Framer Motion Magic", category: "Pengembangan", date: "1 Juni 2025", excerpt: "Kombinasi utility-first CSS dan animasi react untuk antarmuka yang memukau.", likes: 72 }
+    ];
+
+    // State management
+    let currentCategory = "all";
+    let searchQuery = "";
+    let currentPage = 1;
+    const postsPerPage = 6;
+
+    // likes storage
+    let blogLikes = {};
+
+    function loadLikes() {
+        const stored = localStorage.getItem("nexura_blog_likes_v2");
+        if(stored) {
+            try {
+                const parsed = JSON.parse(stored);
+                blogLikes = parsed;
+            } catch(e) {}
+        }
+        // set default likes dari data awal jika belum ada
+        allBlogPosts.forEach(post => {
+            if(blogLikes[post.id] === undefined) {
+                blogLikes[post.id] = post.likes;
+            }
+        });
+        syncLikesToLocal();
+    }
+
+    function syncLikesToLocal() {
+        localStorage.setItem("nexura_blog_likes_v2", JSON.stringify(blogLikes));
+    }
+
+    function updateLike(postId) {
+        if(blogLikes[postId] !== undefined) {
+            blogLikes[postId] += 1;
+        } else {
+            blogLikes[postId] = 1;
+        }
+        syncLikesToLocal();
+        renderBlogs(); // re-render untuk memperbarui angka like
+    }
+
+    // filter & search logic
+    function getFilteredPosts() {
+        let filtered = [...allBlogPosts];
+        if(currentCategory !== "all") {
+            filtered = filtered.filter(post => post.category === currentCategory);
+        }
+        if(searchQuery.trim() !== "") {
+            const query = searchQuery.toLowerCase();
+            filtered = filtered.filter(post => post.title.toLowerCase().includes(query) || post.excerpt.toLowerCase().includes(query));
+        }
+        return filtered;
+    }
+
+    function paginatePosts(posts) {
+        const start = (currentPage - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        return posts.slice(start, end);
+    }
+
+    function renderBlogs() {
+        const container = document.getElementById("blogGridContainer");
+        const filtered = getFilteredPosts();
+        const totalPages = Math.ceil(filtered.length / postsPerPage);
+        // reset page jika di luar batas
+        if(currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+        if(currentPage < 1) currentPage = 1;
+        const paginatedPosts = paginatePosts(filtered);
+
+        if(paginatedPosts.length === 0) {
+            container.innerHTML = `<div class="empty-msg"><i class="fas fa-newspaper"></i> Tidak ada artikel ditemukan. Coba kata kunci lain!</div>`;
+            renderPaginationControls(totalPages);
+            return;
+        }
+
+        container.innerHTML = "";
+        paginatedPosts.forEach(post => {
+            const likeCount = blogLikes[post.id] !== undefined ? blogLikes[post.id] : post.likes;
+            const card = document.createElement("div");
+            card.className = "blog-card glass-card";
+            card.innerHTML = `
+                <div>
+                    <span class="blog-category"><i class="fas fa-tag"></i> ${post.category}</span>
+                    <h3 class="blog-title">${escapeHtml(post.title)}</h3>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${post.date}</span>
+                        <span><i class="far fa-heart"></i> ${likeCount} suka</span>
+                    </div>
+                    <p class="blog-excerpt">${escapeHtml(post.excerpt)}</p>
+                </div>
+                <div class="card-footer">
+                    <button class="like-button" data-id="${post.id}">
+                        <i class="far fa-heart"></i> <span class="like-number">${likeCount}</span>
+                    </button>
+                    <a href="#" class="read-link">Baca selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Attach like events
+        document.querySelectorAll('.like-button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const id = parseInt(btn.getAttribute('data-id'));
+                updateLike(id);
+                // animasi heart mini
+                const icon = btn.querySelector('i');
+                if(icon) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.style.color = '#f43f5e';
+                    setTimeout(() => {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        icon.style.color = '';
+                    }, 250);
+                }
+            });
+        });
+
+        renderPaginationControls(totalPages);
+    }
+
+    function renderPaginationControls(totalPages) {
+        const paginationDiv = document.getElementById("paginationControls");
+        if(!paginationDiv) return;
+        if(totalPages <= 1) {
+            paginationDiv.innerHTML = "";
+            return;
+        }
+        let paginationHtml = "";
+        for(let i=1; i<=totalPages; i++) {
+            paginationHtml += `<button class="page-btn ${i === currentPage ? 'active-page' : ''}" data-page="${i}">${i}</button>`;
+        }
+        paginationDiv.innerHTML = paginationHtml;
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const page = parseInt(btn.getAttribute('data-page'));
+                if(!isNaN(page)) {
+                    currentPage = page;
+                    renderBlogs();
+                    window.scrollTo({ top: 400, behavior: 'smooth' });
+                }
+            });
+        });
+    }
+
+    // helper escape
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // event listeners filter & search
+    function initFilters() {
+        const filterBtns = document.querySelectorAll('.filter-chip');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const cat = btn.getAttribute('data-cat');
+                if(cat) {
+                    currentCategory = cat;
+                    currentPage = 1;
+                    // update active style
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderBlogs();
+                }
+            });
+        });
+
+        const searchInput = document.getElementById('searchInput');
+        if(searchInput) {
+            let debounceTimer;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    searchQuery = e.target.value;
+                    currentPage = 1;
+                    renderBlogs();
+                }, 300);
+            });
+        }
+    }
+
+    // DARK MODE LOGIC
+    function initDarkMode() {
+        const toggleBtn = document.getElementById("darkModeToggleBlog");
+        const body = document.body;
+        function setDarkMode(isDark) {
+            if(isDark) {
+                body.classList.add("dark");
+                localStorage.setItem("nexura_blog_theme", "dark");
+            } else {
+                body.classList.remove("dark");
+                localStorage.setItem("nexura_blog_theme", "light");
+            }
+        }
+        const savedTheme = localStorage.getItem("nexura_blog_theme");
+        if(savedTheme === "dark") {
+            setDarkMode(true);
+        } else if(savedTheme === "light") {
+            setDarkMode(false);
+        } else {
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            setDarkMode(prefersDark);
+        }
+        if(toggleBtn) {
+            toggleBtn.addEventListener("click", () => {
+                const isDark = body.classList.contains("dark");
+                setDarkMode(!isDark);
+            });
+        }
+    }
+
+    // initialize semua
+    function init() {
+        loadLikes();
+        initDarkMode();
+        initFilters();
+        renderBlogs();
+    }
+
+    init();
+</script>
+</body>
+</html>
