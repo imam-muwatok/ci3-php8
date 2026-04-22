@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Nexura | Modern Blog & Portfolio</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            transition: background 0.3s ease, color 0.2s ease;
+            min-height: 100vh;
+            color: #1a2c3e;
+        }
+
+        /* Dark Mode Styling */
+        body.dark {
+            background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
+            color: #eef2ff;
+        }
+
+        /* Glassmorphism Base */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            transition: all 0.25s ease;
+        }
+
+        body.dark .glass-card {
+            background: rgba(20, 30, 45, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.35);
+            border-color: rgba(255,255,255,0.6);
+        }
+        body.dark .glass-card:hover {
+            background: rgba(40, 55, 80, 0.5);
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        /* container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+
+        /* navbar glass */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            padding: 0.8rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(16px);
+            border-radius: 3rem;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        body.dark .navbar {
+            background: rgba(15, 25, 45, 0.5);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #2b6cb0, #9f7aea);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        body.dark .logo {
+            background: linear-gradient(135deg, #90cdf4, #c4b5fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2a3e;
+            transition: 0.2s;
+        }
+        body.dark .nav-links a {
+            color: #e2e8f0;
+        }
+        .nav-links a:hover {
+            color: #2b6cb0;
+        }
+        body.dark .nav-links a:hover {
+            color: #90cdf4;
+        }
+
+        /* toggle switch modern */
+        .theme-toggle {
+            background: rgba(255,255,240,0.3);
+            border-radius: 3rem;
+            padding: 0.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255,255,255,0.4);
+            backdrop-filter: blur(4px);
+        }
+        .theme-toggle i {
+            font-size: 1.2rem;
+            padding: 6px 10px;
+            border-radius: 2rem;
+            transition: 0.2s;
+        }
+        .theme-toggle .fa-sun {
+            background: rgba(255,215,0,0.8);
+            color: #3b2e00;
+        }
+        body.dark .theme-toggle .fa-sun {
+            background: transparent;
+            color: #cbd5e1;
+        }
+        .theme-toggle .fa-moon {
+            background: transparent;
+            color: #334155;
+        }
+        body.dark .theme-toggle .fa-moon {
+            background: rgba(100,116,139,0.6);
+            color: #facc15;
+        }
+
+        /* section titles */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.8rem;
+            display: inline-block;
+            background: linear-gradient(120deg, #2563eb, #7c3aed);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            border-left: 5px solid #3b82f6;
+            padding-left: 1rem;
+        }
+        body.dark .section-title {
+            border-left-color: #818cf8;
+        }
+
+        /* grid layout */
+        .grid-blog {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        .blog-card {
+            padding: 1.5rem;
+            border-radius: 1.8rem;
+            transition: 0.2s;
+        }
+        .blog-card h3 {
+            font-size: 1.5rem;
+            margin: 0.75rem 0 0.5rem;
+        }
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: #2563eb;
+            text-decoration: none;
+        }
+        body.dark .read-more {
+            color: #a5b4fc;
+        }
+
+        /* portfolio grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .portfolio-item {
+            padding: 1.2rem;
+            text-align: center;
+            border-radius: 1.8rem;
+        }
+        .portfolio-icon {
+            font-size: 3rem;
+            background: rgba(255,255,245,0.3);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2rem;
+            margin: 0 auto 1rem;
+            backdrop-filter: blur(4px);
+        }
+        body.dark .portfolio-icon {
+            background: rgba(255,255,255,0.1);
+        }
+        .portfolio-item h4 {
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+        }
+        .tag {
+            display: inline-block;
+            background: rgba(59,130,246,0.2);
+            padding: 0.2rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            margin-top: 0.6rem;
+            font-weight: 500;
+        }
+        /* hero / spotlight */
+        .hero-greeting {
+            margin-bottom: 3rem;
+        }
+        .glass-highlight {
+            padding: 2rem;
+            border-radius: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        body.dark .glass-highlight {
+            background: rgba(0, 0, 0, 0.25);
+        }
+        .hero-greeting h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+        }
+        .hero-greeting p {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+        }
+        body.dark footer {
+            background: rgba(0,0,0,0.2);
+        }
+        button, .btn-like {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: inherit;
+            padding: 0.2rem 0.5rem;
+            border-radius: 2rem;
+            transition: 0.1s;
+        }
+        .like-btn {
+            background: rgba(255,100,100,0.2);
+            border-radius: 2rem;
+            padding: 0.3rem 0.8rem;
+            margin-top: 0.5rem;
+        }
+        body.dark .like-btn {
+            background: rgba(220,38,38,0.2);
+        }
+        .like-btn i {
+            transition: transform 0.1s ease;
+        }
+        .like-btn:hover i {
+            transform: scale(1.1);
+        }
+        hr {
+            margin: 1rem 0;
+            border-color: rgba(255,255,255,0.2);
+        }
+        @media (max-width: 700px) {
+            .container {
+                padding: 1rem;
+            }
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Navbar with Dark Mode Toggle -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-blog"></i> Nexura
+        </div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Blog</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Contact</a>
+            <div class="theme-toggle" id="darkModeToggle">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Spotlight -->
+    <div class="hero-greeting">
+        <div class="glass-highlight">
+            <h1>✨ Crafting Stories & Digital Experience</h1>
+            <p>Blog & Portfolio modern dengan efek kaca (Glassmorphism) — beralih antara terang dan gelap secara mulus. Inspirasi dan karya terbaik dalam satu wadah.</p>
+            <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <span class="tag"><i class="fas fa-pen-fancy"></i> 12+ Artikel</span>
+                <span class="tag"><i class="fas fa-code"></i> 8+ Proyek</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Section -->
+    <div>
+        <div class="section-title">
+            <i class="fas fa-newspaper"></i> Blog Terbaru
+        </div>
+        <div class="grid-blog" id="blogContainer">
+            <!-- artikel akan di generate via js dengan efek interaktif likes -->
+        </div>
+    </div>
+
+    <!-- Portfolio Section -->
+    <div>
+        <div class="section-title">
+            <i class="fas fa-layer-group"></i> Portfolio Unggulan
+        </div>
+        <div class="portfolio-grid" id="portfolioContainer">
+            <!-- portfolio items dari js -->
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Nexura — Modern Glassmorphism UI | Dark Mode Support | <i class="fas fa-heart" style="color: #f43f5e;"></i> Interaktif Blog & Portfolio</p>
+    </footer>
+</div>
+
+<script>
+    // Data Blog (dengan like count)
+    const blogPosts = [
+        {
+            id: 1,
+            title: "Membangun Antarmuka dengan Glassmorphism",
+            date: "15 April 2025",
+            category: "UI/UX",
+            preview: "Pelajari teknik backdrop-filter dan transparansi untuk menciptakan efek kaca modern yang elegan.",
+            likes: 24
+        },
+        {
+            id: 2,
+            title: "Dark Mode: Lebih dari Sekadar Tren",
+            date: "2 Mei 2025",
+            category: "Desain",
+            preview: "Bagaimana dark mode meningkatkan fokus dan kenyamanan mata, serta tips implementasinya.",
+            likes: 47
+        },
+        {
+            id: 3,
+            title: "Optimasi Performa Website Modern",
+            date: "20 Juni 2025",
+            category: "Development",
+            preview: "Teknik lazy loading, code splitting, dan image modern untuk kecepatan maksimal.",
+            likes: 13
+        },
+        {
+            id: 4,
+            title: "Portfolio Kreatif dengan Animasi Halus",
+            date: "5 Juli 2025",
+            category: "Motion",
+            preview: "Eksplorasi micro-interactions yang membuat portfolio Anda berkesan dan dinamis.",
+            likes: 31
+        }
+    ];
+
+    // Portfolio data
+    const portfolioItems = [
+        {
+            id: 101,
+            title: "Nexura Dashboard",
+            category: "Analytics Dashboard",
+            icon: "fas fa-chart-line",
+            desc: "Platform analitik real-time dengan tema glass dan dark mode."
+        },
+        {
+            id: 102,
+            title: "Bloom Nature App",
+            category: "Mobile UI",
+            icon: "fas fa-leaf",
+            desc: "Aplikasi konservasi dengan efek transparan dan interaksi ramah."
+        },
+        {
+            id: 103,
+            title: "Studio Kreatif AI",
+            category: "Web App",
+            icon: "fas fa-robot",
+            desc: "Generator konten bertenaga AI dengan antarmuka futuristik."
+        },
+        {
+            id: 104,
+            title: "Architect Portfolio",
+            category: "Landing Page",
+            icon: "fas fa-draw-polygon",
+            desc: "Portofolio arsitek dengan tampilan grid kaca dan tipografi berani."
+        }
+    ];
+
+    // Inisialisasi likes dari localStorage atau default
+    let blogLikes = {};
+    function loadLikesFromStorage() {
+        const stored = localStorage.getItem("nexura_blog_likes");
+        if(stored) {
+            try {
+                const parsed = JSON.parse(stored);
+                blogLikes = parsed;
+            } catch(e) { console.warn(e); }
+        }
+        // set default for any missing post
+        blogPosts.forEach(post => {
+            if(blogLikes[post.id] === undefined) {
+                blogLikes[post.id] = post.likes;
+            }
+        });
+    }
+    function saveLikesToStorage() {
+        localStorage.setItem("nexura_blog_likes", JSON.stringify(blogLikes));
+    }
+
+    // render blog dengan event listener dinamis (like)
+    function renderBlog() {
+        const container = document.getElementById("blogContainer");
+        if(!container) return;
+        container.innerHTML = "";
+        blogPosts.forEach(post => {
+            const currentLikes = blogLikes[post.id] !== undefined ? blogLikes[post.id] : post.likes;
+            const card = document.createElement("div");
+            card.className = "blog-card glass-card";
+            card.innerHTML = `
+                <div class="blog-meta">
+                    <span><i class="far fa-calendar-alt"></i> ${post.date}</span>
+                    <span><i class="fas fa-tag"></i> ${post.category}</span>
+                </div>
+                <h3>${post.title}</h3>
+                <p style="line-height:1.5; margin:0.5rem 0;">${post.preview}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.8rem;">
+                    <button class="like-btn" data-id="${post.id}">
+                        <i class="far fa-heart"></i> <span class="like-count">${currentLikes}</span>
+                    </button>
+                    <a href="#" class="read-more">Baca selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Attach like events
+        document.querySelectorAll('.like-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const id = parseInt(btn.getAttribute('data-id'));
+                if(blogLikes[id] !== undefined) {
+                    blogLikes[id] += 1;
+                } else {
+                    blogLikes[id] = 1;
+                }
+                saveLikesToStorage();
+                // update UI without re-render all (optimization)
+                const spanCount = btn.querySelector('.like-count');
+                if(spanCount) spanCount.innerText = blogLikes[id];
+                // animasi heart
+                const heartIcon = btn.querySelector('i');
+                if(heartIcon) {
+                    heartIcon.classList.remove('far');
+                    heartIcon.classList.add('fas');
+                    heartIcon.style.color = '#f43f5e';
+                    setTimeout(() => {
+                        heartIcon.classList.remove('fas');
+                        heartIcon.classList.add('far');
+                        heartIcon.style.color = '';
+                    }, 300);
+                }
+            });
+        });
+    }
+
+    // Render Portfolio dengan efek kaca dan interaksi sederhana (hover sudah di css)
+    function renderPortfolio() {
+        const container = document.getElementById("portfolioContainer");
+        if(!container) return;
+        container.innerHTML = "";
+        portfolioItems.forEach(item => {
+            const portCard = document.createElement("div");
+            portCard.className = "portfolio-item glass-card";
+            portCard.innerHTML = `
+                <div class="portfolio-icon">
+                    <i class="${item.icon}"></i>
+                </div>
+                <h4>${item.title}</h4>
+                <p style="font-size: 0.85rem; margin: 0.5rem 0;">${item.desc}</p>
+                <span class="tag"><i class="fas fa-briefcase"></i> ${item.category}</span>
+                <div style="margin-top: 1rem;">
+                    <button class="btn-like project-demo" style="background: rgba(59,130,246,0.2); border-radius: 2rem; padding: 0.3rem 1rem;">
+                        <i class="fas fa-external-link-alt"></i> Detail
+                    </button>
+                </div>
+            `;
+            container.appendChild(portCard);
+        });
+        // tambah event untuk tombol demo alert (hanya demo interaksi)
+        document.querySelectorAll('.project-demo').forEach((btn, idx) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const projectName = portfolioItems[idx].title;
+                alert(`✨ Preview proyek "${projectName}" — Terapkan glassmorphism & modern responsive.`);
+            });
+        });
+    }
+
+    // DARK MODE LOGIC (support lokal dan system)
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const body = document.body;
+    function setDarkMode(isDark) {
+        if(isDark) {
+            body.classList.add("dark");
+            localStorage.setItem("nexura_theme", "dark");
+        } else {
+            body.classList.remove("dark");
+            localStorage.setItem("nexura_theme", "light");
+        }
+    }
+    function initTheme() {
+        const savedTheme = localStorage.getItem("nexura_theme");
+        if(savedTheme === "dark") {
+            setDarkMode(true);
+        } else if(savedTheme === "light") {
+            setDarkMode(false);
+        } else {
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            setDarkMode(prefersDark);
+        }
+    }
+    if(darkModeToggle) {
+        darkModeToggle.addEventListener("click", () => {
+            const isDark = body.classList.contains("dark");
+            setDarkMode(!isDark);
+        });
+    }
+
+    // Animasi subtle untuk menampilkan efek modern saat load
+    window.addEventListener("DOMContentLoaded", () => {
+        initTheme();
+        loadLikesFromStorage();
+        renderBlog();
+        renderPortfolio();
+        // tambahkan efek kaca ekstra untuk interaksi global (glass sudah terapkan)
+        console.log("Glassmorphism UI with dark mode ready ✨");
+    });
+</script>
+
+<!-- Catatan kecil: UI sudah memiliki support penuh dark mode dan glassmorphism modern, serta interaksi like count yang disimpan di localStorage -->
+</body>
+</html>
